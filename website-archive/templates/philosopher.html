@@ -17,7 +17,11 @@
         <h2>Biographie</h2>
         <ul>
             {% for event in philosopher.biographie %}
-                <li>{{ event.date }}: {{ event.description }}</li>
+                <li>
+                    {% if event.date %}{{ event.date }} {%if event.place %}{{event.place}}{% endif %}: {% endif %}
+                    {{ event.description }}
+                    {% if event.partner %}(Partner: {{ event.partner }}){% endif %}
+                </li>
             {% endfor %}
         </ul>
     </section>

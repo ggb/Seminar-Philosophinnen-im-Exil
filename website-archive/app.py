@@ -35,22 +35,31 @@ def extract_stammdaten(graph, philosopher_name):
             else:
                 stammdaten[key] = str(obj)
     return stammdaten
+
 def extract_biographie(graph, philosopher_name):
     biographie = []
     subject = URIRef(f"http://www.exiled-philosophers.org/{philosopher_name.replace(' ', '_')}")
-    
     for predicate, obj in graph.predicate_objects(subject=subject):
-        if str(predicate) == "http://purl.org/vocab/bio/0.1/event":
+       
+        if str(predicate).startswith("http://purl.org/vocab/bio/0.1/"):
             event_details = extract_event_details(graph, obj)
-            biographie.append(event_details)
-    
-    biographie.sort(key=lambda x: x.get("date", ""))
+            if event_details:
+                biographie.append(event_details)
+    # biographie.sort(key=lambda x: x.get("date", ""))
     return biographie
 
 def extract_event_details(graph, event):
     event_details = {}
     for predicate, obj in graph.predicate_objects(subject=event):
-        event_details[str(predicate)] = str(obj)
+        pred_str = str(predicate)
+        if pred_str == "http://purl.org/vocab/bio/0.1/date":
+            event_details["date"] = str(obj)
+        elif pred_str == "http://www.w3.org/2000/01/rdf-schema#label":
+            event_details["description"] = str(obj)
+        elif pred_str == "http://purl.org/vocab/bio/0.1/partner":
+            event_details["partner"] = str(obj)
+        elif pred_str == "http://purl.org/vocab/bio/0.1/place":
+            event_details["place"] = str(obj)
     return event_details
 
 def extract_bibliographie(graph):
