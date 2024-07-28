@@ -29,31 +29,30 @@ def slug_to_readable(slug):
 
 def format_date(date_str):
     try:
-        # Attempt to parse date with full format (YYYY-MM-DD)
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
         return date_obj.strftime('%B %d, %Y')
     except ValueError:
         try:
-            # Attempt to parse date with year and month (YYYY-MM)
             date_obj = datetime.strptime(date_str, '%Y-%m')
             return date_obj.strftime('%B %Y')
         except ValueError:
             try:
-                # Attempt to parse date with only year (YYYY)
                 date_obj = datetime.strptime(date_str, '%Y')
                 return date_obj.strftime('%Y')
             except ValueError:
-                # If parsing fails, return the original string
-                return date_str
+                return date_str.strip()
 
 def format_label(label):
-    # Replace underscores with spaces
     label = label.replace('_', ' ')
-    # Convert camelCase to words
     label = re.sub(r'([a-z])([A-Z])', r'\1 \2', label)
-    # Capitalize the first letter of each word
     label = label.title()
     return label
+
+def format_link(obj):
+    if isinstance(obj, URIRef):
+        slug = obj.split('/')[-1]
+        return f"<a href='{obj}'>{slug_to_readable(slug)}</a>"
+    return str(obj)
 
 def extract_stammdaten(graph, philosopher_name):
     stammdaten = {}
@@ -65,14 +64,9 @@ def extract_stammdaten(graph, philosopher_name):
             if key == "subjects":
                 if key not in stammdaten:
                     stammdaten[key] = []
-                stammdaten[key].append(str(obj))
+                stammdaten[key].append(format_link(obj))
             else:
-                if isinstance(obj, URIRef):
-                    slug = obj.split('/')[-1]
-                    stammdaten[key] = f"<a href='{obj}'>{slug_to_readable(slug)}</a>"
-                else:
-                    stammdaten[key] = format_date(str(obj)) if "date" in key.lower() else str(obj)
-    # Format the labels of stammdaten
+                stammdaten[key] = format_date(str(obj)) if "date" in key.lower() else format_link(obj)
     formatted_stammdaten = {format_label(k): v for k, v in stammdaten.items()}
     return formatted_stammdaten
 
@@ -96,17 +90,9 @@ def extract_event_details(graph, event):
         elif pred_str == "http://www.w3.org/2000/01/rdf-schema#label":
             event_details["description"] = str(obj)
         elif pred_str == "http://purl.org/vocab/bio/0.1/partner":
-            if isinstance(obj, URIRef):
-                slug = obj.split('/')[-1]
-                event_details["partner"] = f"<a href='{obj}'>{slug_to_readable(slug)}</a>"
-            else:
-                event_details["partner"] = str(obj)
+            event_details["partner"] = format_link(obj)
         elif pred_str == "http://purl.org/vocab/bio/0.1/place":
-            if isinstance(obj, URIRef):
-                slug = obj.split('/')[-1]
-                event_details["place"] = f"<a href='{obj}'>{slug_to_readable(slug)}</a>"
-            else:
-                event_details["place"] = str(obj)
+            event_details["place"] = format_link(obj)
     return event_details
 
 def extract_bibliographie(graph, philosopher_name):
@@ -132,11 +118,7 @@ def extract_book_details(graph, book):
         elif pred_str == "http://www.w3.org/2000/01/rdf-schema#label":
             book_details["label"] = str(obj)
         elif pred_str == "http://www.w3.org/2002/07/owl#sameAs":
-            if isinstance(obj, URIRef):
-                slug = obj.split('/')[-1]
-                book_details["sameAs"] = f"<a href='{obj}'>{slug_to_readable(slug)}</a>"
-            else:
-                book_details["sameAs"] = str(obj)
+            book_details["sameAs"] = format_link(obj)
     return book_details
 
 def render_html(philosopher, template_path='templates'):
