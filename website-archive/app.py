@@ -1,11 +1,15 @@
 from flask import Flask, render_template_string
 import os
+import json
 from rdflib import Graph, URIRef
 from jinja2 import Environment, FileSystemLoader
 import rdflib
 
 app = Flask(__name__)
 
+# Load configuration file
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
 class Philosopher:
     def __init__(self, stammdaten, biographie, bibliographie):
         self.stammdaten = stammdaten
@@ -22,32 +26,15 @@ def extract_stammdaten(graph, philosopher_name):
     subject = URIRef(f"http://www.exiled-philosophers.org/{philosopher_name.replace(' ', '_')}")
     for predicate, obj in graph.predicate_objects(subject=subject):
         pred_str = str(predicate)
-        obj_str = str(obj)
-
-        if pred_str == "http://www.w3.org/2002/07/owl#sameAs":
-            stammdaten["sameAs"] = obj_str
-        elif pred_str == "http://purl.org/dc/terms/name":
-            stammdaten["name"] = obj_str
-        elif pred_str == "http://xmlns.com/foaf/0.1/birthDate":
-            stammdaten["birthDate"] = obj_str
-        elif pred_str == "http://xmlns.com/foaf/0.1/birthPlace":
-            stammdaten["birthPlace"] = obj_str
-        elif pred_str == "http://xmlns.com/foaf/0.1/deathDate":
-            stammdaten["deathDate"] = obj_str
-        elif pred_str == "http://xmlns.com/foaf/0.1/deathPlace":
-            stammdaten["deathPlace"] = obj_str
-        elif pred_str == "http://xmlns.com/foaf/0.1/nationality":
-            stammdaten["nationality"] = obj_str
-        elif pred_str == "http://purl.org/dc/terms/description":
-            stammdaten["description"] = obj_str
-        elif pred_str == "http://purl.org/dc/terms/subject":
-            if "subjects" not in stammdaten:
-                stammdaten["subjects"] = []
-            stammdaten["subjects"].append(obj_str)
-        # Add more predicates as needed
-    
+        if pred_str in config["stammdaten_predicates"]:
+            key = config["stammdaten_predicates"][pred_str]
+            if key == "subjects":
+                if key not in stammdaten:
+                    stammdaten[key] = []
+                stammdaten[key].append(str(obj))
+            else:
+                stammdaten[key] = str(obj)
     return stammdaten
-
 def extract_biographie(graph, philosopher_name):
     biographie = []
     subject = URIRef(f"http://www.exiled-philosophers.org/{philosopher_name.replace(' ', '_')}")
