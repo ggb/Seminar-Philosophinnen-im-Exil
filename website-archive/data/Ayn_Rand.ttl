@@ -1,0 +1,234 @@
+@prefix ex: <http://www.exiled-philosophers.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> . 
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix bio: <http://purl.org/vocab/bio/0.1/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix source: <https://www.iep.utm.edu/> .
+@prefix britannica: <https://www.britannica.com/biography/> .
+
+
+ex:Ayn_Rand a foaf:Person;
+    foaf:name "Ayn Rand" ;
+    foaf:givenName "Alisa Zinov'yevna" ;
+    foaf:familyName "Rosenbaum" ;
+    foaf:nick "Ayn Rand" ;
+    foaf:birthDate "1905-02-02"^^xsd:date ;
+    foaf:deathDate "1982-03-06"^^xsd:date ;
+    foaf:birthPlace dbr:Saint_Petersburg ;
+    foaf:deathPlace dbr:New_York_City ;
+    dbo:nationality dbr:Russia ;
+    dbo:occupation dbr:Philosopher, dbr:Writer, dbr:Screenwriter ;
+    dbo:author ex:the_fountainhead, ex:atlas_shrugged, ex:we_the_living, ex:anthem, 
+                ex:virtue_of_selfishness, ex:for_the_new_intellectual, ex:capitalism_the_unknown_ideal,
+                ex:the_romantic_manifesto, ex:the_new_left, ex:intro_to_objectivist_epistemology,
+                ex:philosophy_who_needs_it, ex:the_fountainhead_film, ex:love_letters ;
+    bio:event ex:emigrationUSA, ex:marriageOConnor, ex:childhood, ex:pharmacyNationalization,
+                ex:escapeCrimea, ex:returnPetrograd, ex:universityStudies, ex:screenwritingStudies,
+                ex:meetDeMille, ex:redPawnPublication, ex:depressionAfterAtlas, ex:lungCancerSurgery, 
+                ex:governmentAssistance ;
+    owl:sameAs dbr:Ayn_Rand .
+
+# Biography
+
+ex:childhood a bio:Event ;
+    bio:place dbr:Saint_Petersburg ;
+    rdfs:label "Kindheit in einer bürgerlichen jüdischen Familie in Sankt Petersburg."@de ;
+    rdfs:label "Childhood in a bourgeois Jewish family in Saint Petersburg."@en ;
+    dcterms:source source:rand .
+
+ex:pharmacyNationalization a bio:Event ;
+    bio:date "1917"^^xsd:gYear ;
+    rdfs:label "Verstaatlichung der Apotheke ihres Vaters nach der russischen Revolution."@de ;
+    rdfs:label "Nationalization of her father's pharmacy after the Russian Revolution."@en ;
+    dcterms:source britannica:Ayn-Rand .
+
+ex:escapeCrimea a bio:Event ;
+    bio:date "1918"^^xsd:gYear ;
+    bio:place dbr:Crimea ;
+    rdfs:label "Flucht auf die Krim aufgrund der russischen Revolution und der daraus resultierenden Verarmung der Familie."@de ;
+    rdfs:label "Escape to Crimea due to the Russian Revolution and the resulting impoverishment of the family."@en ;
+    dcterms:source source:rand .
+
+ex:returnPetrograd a bio:Event ;
+    bio:date "1921"^^xsd:gYear ;
+    bio:place dbr:Saint_Petersburg ;
+    rdfs:label "Rückkehr nach Petrograd (ehemals Sankt Petersburg)."@de ;
+    rdfs:label "Return to Petrograd (formerly Saint Petersburg)."@en ;
+    dcterms:source britannica:Ayn-Rand .
+
+ex:universityStudies a bio:Event ;
+    bio:date "1924"^^xsd:gYear ;
+    bio:place dbr:Saint_Petersburg_State_University ;
+    rdfs:label "Abschluss des Studiums der Geschichte und Philosophie an der Universität Petrograd."@de ;
+    rdfs:label "Graduation in history and philosophy from the University of Petrograd."@en ;
+    dcterms:source <https://www.harvardmagazine.com/2009/11/ayn-rand> .
+
+ex:screenwritingStudies a bio:Event ;
+    bio:date "1924"^^xsd:gYear ;
+    bio:place dbr:Saint_Petersburg_State_Institute_of_Film_and_Television ;
+    rdfs:label "Nach dem Universitätsabschluss erlernt sie am Staatlichen Institut für Filmkünste das Drehbuchschreiben."@de ;
+    rdfs:label "After university graduation, she studied screenwriting at the State Institute of Cinematography."@en ;
+    dcterms:source source:rand .
+
+ex:emigrationUSA a bio:Emigration ;
+    bio:date "1926"^^xsd:gYear ;
+    bio:place dbr:Soviet_Union, dbr:United_States ;
+    rdfs:label "Emigration in die USA, um der Unterdrückung des Kommunismus zu entkommen."@de ;
+    rdfs:label "Emigration to the USA to escape the oppression of communism."@en ;
+    dcterms:source britannica:Ayn-Rand .
+
+ex:meetDeMille a bio:Event ;
+    bio:date "1926"^^xsd:gYear ;
+    rdfs:label "Begegnung mit dem Filmregisseur Cecil B. DeMille in Hollywood und Arbeit als Statistin in seinem Film 'König der Könige'."@de ;
+    rdfs:label "Meeting film director Cecil B. DeMille in Hollywood and working as an extra in his film 'The King of Kings'."@en ;
+    dcterms:source source:rand .
+
+ex:marriageOConnor a bio:Marriage ;
+    bio:partner dbr:Frank_OConnor_actor ;
+    bio:date "1929-04-15"^^xsd:date ;
+    rdfs:label "Heirat mit dem Schauspieler Frank O\'Connor."@de ;
+    rdfs:label "Marriage to actor Frank O'Connor."@en ;
+    dcterms:source <https://www.harvardmagazine.com/2009/11/ayn-rand> .
+
+# Books
+
+ex:the_fountainhead a bibo:Book ;
+    dcterms:title "The Fountainhead" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1943"^^xsd:gYear ;
+    bibo:isbn "9780451191151" ;
+    rdfs:subject dbr:Individualism ;
+    rdfs:label "The Fountainhead"@en ;
+    owl:sameAs dbr:The_Fountainhead .
+
+ex:atlas_shrugged a bibo:Book ;
+    dcterms:title "Atlas Shrugged" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1957"^^xsd:gYear ;
+    bibo:isbn "9780451191144" ;
+    rdfs:subject dbr:Objectivism_Ayn_Rand ;
+    rdfs:label "Atlas Shrugged"@en ;
+    owl:sameAs dbr:Atlas_Shrugged .
+
+ex:we_the_living a bibo:Book ;
+    dcterms:title "We the Living" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1936"^^xsd:gYear ;
+    bibo:isbn "9780451017918" ;
+    rdfs:subject dbr:Autobiographical_novel ;
+    rdfs:label "We the Living"@en ;
+    owl:sameAs dbr:We_the_Living .
+
+
+ex:anthem a bibo:Book ;
+    dcterms:title "Anthem" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1938"^^xsd:gYear ;
+    bibo:isbn "9781503250703" ;
+    rdfs:subject dbr:Dystopian_novel ;
+    rdfs:label "Anthem"@en ;
+    owl:sameAs dbr:Anthem_novella .
+
+ex:virtue_of_selfishness a bibo:Book ;
+    dcterms:title "The Virtue of Selfishness" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1964"^^xsd:gYear ;
+    bibo:isbn "9780451163936" ;
+    rdfs:subject dbr:Ethics ;
+    rdfs:label "The Virtue of Selfishness"@en ;
+    owl:sameAs dbr:The_Virtue_of_Selfishness .
+
+ex:for_the_new_intellectual a bibo:Book ;
+    dcterms:title "For the New Intellectual" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1961"^^xsd:gYear ;
+    bibo:isbn "9780451163080" ;
+    rdfs:subject dbr:Philosophy ;
+    rdfs:label "For the New Intellectual"@en ;
+    owl:sameAs dbr:For_the_New_Intellectual .
+
+ex:capitalism_the_unknown_ideal a bibo:Book ;
+    dcterms:title "Capitalism: The Unknown Ideal" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1966"^^xsd:gYear ;
+    bibo:isbn "9780451147950" ;
+    rdfs:subject dbr:Capitalism ;
+    rdfs:label "Capitalism: The Unknown Ideal"@en ;
+    owl:sameAs dbr:Capitalism:_The_Unknown_Ideal .
+
+ex:the_romantic_manifesto a bibo:Book ;
+    dcterms:title "The Romantic Manifesto" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1969"^^xsd:gYear ;
+    bibo:isbn "9780451149169" ;
+    rdfs:subject dbr:Art ;
+    rdfs:label "The Romantic Manifesto"@en ;
+    owl:sameAs dbr:The_Romantic_Manifesto .    
+
+ex:the_new_left a bibo:Book ;
+    dcterms:title "The New Left: The Anti-Industrial Revolution" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1971"^^xsd:gYear ;
+    bibo:isbn "9780451156457" ;
+    rdfs:subject dbr:Politics ;
+    rdfs:label "The New Left: The Anti-Industrial Revolution"@en ;
+    owl:sameAs dbr:The_New_Left:_The_Anti-Industrial_Revolution .    
+
+
+ex:intro_to_objectivist_epistemology a bibo:Book ;
+    dcterms:title "Introduction to Objectivist Epistemology" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1967"^^xsd:gYear ;
+    bibo:isbn "9780452010307" ;
+    rdfs:subject dbr:Epistemology ;
+    rdfs:label "Introduction to Objectivist Epistemology"@en ;
+    owl:sameAs dbr:Introduction_to_Objectivist_Epistemology .
+
+ex:philosophy_who_needs_it a bibo:Book ;
+    dcterms:title "Philosophy: Who Needs It" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:language dbr:English_language ;
+    dcterms:issued "1982"^^xsd:gYear ;
+    bibo:isbn "9780451138934" ;
+    rdfs:subject dbr:Philosophy ;
+    rdfs:label "Philosophy: Who Needs It"@en ;
+    owl:sameAs dbr:Philosophy:_Who_Needs_It .
+
+# Films
+
+ex:the_fountainhead_film a dbo:Film ;
+    dcterms:title "The Fountainhead" ;
+    dcterms:basedOn ex:the_fountainhead ;
+    dcterms:issued "1949"^^xsd:gYear ;
+    rdfs:label "The Fountainhead (Film)"@en ;
+    owl:sameAs dbr:The_Fountainhead_film .
+
+ex:love_letters a dbo:Film ;
+    dcterms:title "Love Letters" ;
+    dcterms:creator ex:Ayn_Rand ;
+    dcterms:issued "1945"^^xsd:gYear ;
+    rdfs:label "Love Letters"@en ;
+    owl:sameAs dbr:Love_Letters_1945_film .
+
+# Philosophical Movement
+
+ex:Objectivism a dbo:PhilosophicalMovement ;
+    dcterms:creator ex:Ayn_Rand ;
+    rdfs:comment "Eine Variante des Libertarismus" ;
+    rdfs:comment "A variant of libertarianism."@en ;
+    rdfs:label "Objectivism"@en .

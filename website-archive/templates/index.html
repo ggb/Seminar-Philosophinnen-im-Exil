@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Philosophers in Exile</title>
+</head>
+<body>
+    <h1>Philosophers in Exile</h1>
+    <ul>
+        {% for name in philosophers %}
+            <li><a href="/philosopher/{{ name }}">{{ name.replace('_', ' ') }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

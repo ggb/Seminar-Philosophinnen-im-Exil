@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ philosopher.stammdaten.name }}</title>
+</head>
+<body>
+    <h1>{{ philosopher.stammdaten.name }}</h1>
+    <section>
+        <h2>Stammdaten</h2>
+        <ul>
+            {% for key, value in philosopher.stammdaten.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>Biographie</h2>
+        <ul>
+            {% for event in philosopher.biographie %}
+                <li>{{ event.date }}: {{ event.description }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>Bibliographie</h2>
+        <ul>
+            {% for book in philosopher.bibliographie %}
+                <li>{{ book.title }} ({{ book.year }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
