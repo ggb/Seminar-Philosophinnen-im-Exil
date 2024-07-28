@@ -9,7 +9,7 @@
         <h2>Stammdaten</h2>
         <ul>
             {% for key, value in philosopher.stammdaten.items() %}
-                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                <li><strong>{{ key }}:</strong> {{ value|safe }}</li>
             {% endfor %}
         </ul>
     </section>
@@ -18,9 +18,9 @@
         <ul>
             {% for event in philosopher.biographie %}
                 <li>
-                    {% if event.date %}{{ event.date }} {%if event.place %}{{event.place}}{% endif %}: {% endif %}
+                    {% if event.date %}{{ event.date }} {%if event.place %}{{ event.place|safe }}{% endif %}: {% endif %}
                     {{ event.description }}
-                    {% if event.partner %}(Partner: {{ event.partner }}){% endif %}
+                    {% if event.partner %}(Partner: {{ event.partner|safe }}){% endif %}
                 </li>
             {% endfor %}
         </ul>
@@ -29,7 +29,11 @@
         <h2>Bibliographie</h2>
         <ul>
             {% for book in philosopher.bibliographie %}
-                <li>{{ book.title }} ({{ book.year }})</li>
+                <li>
+                    {{ book.title }} ({{ book.year }}) 
+                    {% if book.isbn %}, ISBN: {{ book.isbn }}{% endif %}
+                    {% if book.sameAs %}, Link: {{ book.sameAs|safe }}{% endif %}
+                </li>
             {% endfor %}
         </ul>
     </section>
