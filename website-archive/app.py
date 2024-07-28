@@ -97,14 +97,14 @@ def list_philosophers(data_dir):
 
 @app.route('/')
 def index():
-    data_dir = 'data'
+    data_dir = '../turtle_files'
     philosophers = list_philosophers(data_dir)
     html_content = render_main_page(philosophers)
     return render_template_string(html_content)
 
 @app.route('/philosopher/<name>')
 def show_philosopher(name):
-    file_path = os.path.join('data', f'{name}.ttl')
+    file_path = os.path.join('../turtle_files', f'{name}.ttl')
     g = parse_turtle(file_path)
     stammdaten = extract_stammdaten(g, name)
     biographie = extract_biographie(g, name)
