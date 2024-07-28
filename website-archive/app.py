@@ -62,19 +62,26 @@ def extract_event_details(graph, event):
             event_details["place"] = str(obj)
     return event_details
 
-def extract_bibliographie(graph):
+def extract_bibliographie(graph, philosopher_name):
     bibliographie = []
-    
-    for subject, predicate, obj in graph.triples((None, rdflib.RDF.type, URIRef("http://purl.org/ontology/bibo/Book"))):
-        book_details = extract_book_details(graph, subject)
-        bibliographie.append(book_details)
-    
+    subject = URIRef(f"http://www.exiled-philosophers.org/{philosopher_name.replace(' ', '_')}")
+    for predicate, obj in graph.predicate_objects(subject=subject):
+        if str(predicate) == "http://dbpedia.org/ontology/author":
+            book_details = extract_book_details(graph, obj)
+            if book_details:
+                bibliographie.append(book_details)
     return bibliographie
 
 def extract_book_details(graph, book):
     book_details = {}
     for predicate, obj in graph.predicate_objects(subject=book):
-        book_details[str(predicate)] = str(obj)
+        pred_str = str(predicate)
+        if pred_str == "http://purl.org/dc/terms/title":
+            book_details["title"] = str(obj)
+        elif pred_str == "http://purl.org/dc/terms/issued":
+            book_details["year"] = str(obj)
+        elif pred_str == "http://purl.org/ontology/bibo/isbn":
+            book_details["isbn"] = str(obj)
     return book_details
 
 def render_html(philosopher, template_path='templates'):
@@ -104,7 +111,7 @@ def show_philosopher(name):
     g = parse_turtle(file_path)
     stammdaten = extract_stammdaten(g, name)
     biographie = extract_biographie(g, name)
-    bibliographie = extract_bibliographie(g)
+    bibliographie = extract_bibliographie(g, name)
     philosopher = Philosopher(stammdaten, biographie, bibliographie)
     html_content = render_html(philosopher)
     return render_template_string(html_content)
