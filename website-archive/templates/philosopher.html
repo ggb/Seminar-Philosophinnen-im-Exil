@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ philosopher.stammdaten.Name }} - Philosopher in Exile</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 56px;
+            }
+            .section-title {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            footer {
+                background-color: #f8f9fa;
+                padding: 20px 0;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .sidebar {
+                padding: 20px;
+                background-color: #f8f9fa;
+                margin-bottom: 20px;
+            }
+            .content {
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Philosophers in Exile</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container-fluid">
+            <div class="row flex-column flex-md-row">
+                <!-- Sidebar -->
+                <nav id="toc" class="col-12 col-md-3 col-lg-2 sidebar">
+                    <h2 class="section-title">Table of Contents</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="#stammdaten">Stammdaten</a></li>
+                        <li class="list-group-item"><a href="#biographie">Biographie</a></li>
+                        <li class="list-group-item"><a href="#bibliographie">Bibliographie</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Main Content -->
+                <div class="col-12 col-md-9 col-lg-10 content">
+                    <h1 class="my-4">{{ philosopher.stammdaten.Name }}</h1>
+                    
+                    <section id="stammdaten">
+                        <h2 class="section-title">Stammdaten</h2>
+                        <ul class="list-group">
+                            {% for key, value in philosopher.stammdaten.items() %}
+                                <li class="list-group-item"><strong>{{ key }}:</strong> {{ value|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    
+                    <section id="biographie">
+                        <h2 class="section-title">Biographie</h2>
+                        <ul class="list-group">
+                            {% for event in philosopher.biographie %}
+                                <li class="list-group-item">
+                                    {% if event.date %}{{ event.date }}{% endif %}
+                                    {% if event.place %}, {{ event.place|safe }}{% endif %}: {{ event.description }}
+                                    {% if event.partner %} (Partner: {{ event.partner|safe }}){% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    
+                    <section id="bibliographie">
+                        <h2 class="section-title">Bibliographie</h2>
+                        <ul class="list-group">
+                            {% for book in philosopher.bibliographie %}
+                                <li class="list-group-item">
+                                    {{ book.title }} ({{ book.year }})
+                                    {% if book.isbn %}, ISBN: {{ book.isbn }}{% endif %}
+                                    {% if book.sameAs %}, Link: {{ book.sameAs|safe }}{% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
