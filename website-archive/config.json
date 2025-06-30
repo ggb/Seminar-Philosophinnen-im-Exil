@@ -1,0 +1,15 @@
+{
+    "stammdaten_predicates": {
+        "http://www.w3.org/2002/07/owl#sameAs": "sameAs",
+        "http://xmlns.com/foaf/0.1/name": "name",
+        "http://xmlns.com/foaf/0.1/givenName": "givenName",
+        "http://xmlns.com/foaf/0.1/familyName": "familyName",
+        "http://xmlns.com/foaf/0.1/nick": "nick",
+        "http://xmlns.com/foaf/0.1/birthDate": "birthDate",
+        "http://xmlns.com/foaf/0.1/deathDate": "deathDate",
+        "http://xmlns.com/foaf/0.1/birthPlace": "birthPlace",
+        "http://xmlns.com/foaf/0.1/deathPlace": "deathPlace",
+        "http://dbpedia.org/ontology/nationality": "nationality",
+        "http://dbpedia.org/ontology/occupation": "occupation"
+    }
+}
